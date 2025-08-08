@@ -2,10 +2,11 @@
 
 import BarGraph from "@/client/components/shared/bar-graph";
 import { PieChart } from "@/client/components/shared/pie-chart";
+import { TransactionTable } from "@/client/components/shared/transaction-table";
 
 export function Transactions() {
     return (
-        <section className="min-h-screen">
+        <section className="flex min-h-screen flex-col gap-8">
             <div className="flex flex-col gap-6 lg:flex-row">
                 <div className="w-full max-w-lg rounded-xl bg-white p-6 shadow">
                     <p className="mb-4 text-gray-600 text-sm">
@@ -25,6 +26,10 @@ export function Transactions() {
                         <PieChart />
                     </div>
                 </div>
+            </div>
+            <div>
+                <h2 className="font-bold text-2xl">All Transactions</h2>
+                <TransactionTable />
             </div>
         </section>
     );

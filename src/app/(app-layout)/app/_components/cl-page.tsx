@@ -35,7 +35,7 @@ export function HomeClientPage() {
         setCurrentUrl(window.location.href);
     }, []);
     return (
-        <section className="flex min-h-screen w-full w-screen flex-1 flex-col gap-6 bg-white sm:w-auto">
+        <section className="flex min-h-screen w-screen flex-1 flex-col gap-6 bg-white sm:w-auto">
             <header className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-white px-4 py-4 sm:py-8 shadow-sm sm:flex-wrap sm:gap-0 sm:px-6 md:justify-end md:px-8">
                 {/* Logo (hidden on md and up) */}
                 <Link href="/app" className="relative flex-shrink-0 md:hidden">
@@ -67,7 +67,7 @@ export function HomeClientPage() {
                     <Tooltip>
                         <TooltipTrigger onClick={() => router.push("/app/settings")}>
                             <Avatar>
-                                <AvatarImage src="/assets/images/profile-picture.svg" alt="@shadcn" />
+                                <AvatarImage src="/assets/images/profile-picture-one.svg" alt="@shadcn" />
                                 <AvatarFallback>TD</AvatarFallback>
                             </Avatar>
                         </TooltipTrigger>
@@ -162,28 +162,28 @@ export function HomeClientPage() {
                 </div>
             </div>
             <div className="flex items-center gap-1 px-8 text-[#6D797C] text-xs tracking-tighter">
-                <div className="-space-x-2 flex *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale">
+                <div className="-space-x-2 flex *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background">
                     <Avatar>
-                        <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />
+                        <AvatarImage src="/assets/images/profile-picture-one.svg" alt="@shadcn" />
                         <AvatarFallback>CN</AvatarFallback>
                     </Avatar>
                     <Avatar>
-                        <AvatarImage src="https://github.com/leerob.png" alt="@leerob" />
+                        <AvatarImage src="/assets/images/profile-picture-two.svg" alt="@leerob" />
                         <AvatarFallback>LR</AvatarFallback>
                     </Avatar>
                     <Avatar>
-                        <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
-                        <AvatarFallback>ER</AvatarFallback>
+                        <AvatarImage src="/assets/images/profile-picture-three.svg" alt="@evilrabbit" />
+                        <AvatarFallback>TD</AvatarFallback>
                     </Avatar>
                     <Avatar>
-                        <AvatarImage src="https://github.com/leerob.png" alt="@evilrabbit" />
-                        <AvatarFallback>ER</AvatarFallback>
+                        <AvatarImage src="/assets/images/profile-picture-four.svg" alt="@evilrabbit" />
+                        <AvatarFallback>FG</AvatarFallback>
                     </Avatar>
                 </div>
                 <div className="ml-2">Ava, Liam, Noah</div>
                 <div>+12 others</div>
             </div>
-            <Tabs defaultValue="overview" className="w-full px-8">
+            <Tabs defaultValue="overview" className="w-full px-8 ">
                 <TabsList className="my-4 bg-white">
                     <TabsTrigger value="overview" className="text-[#6D797C]">
                         Overview
