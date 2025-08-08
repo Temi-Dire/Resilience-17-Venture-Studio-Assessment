@@ -36,7 +36,7 @@ export default function BottomNav() {
                     </Link>
                 </li>
                 <li>
-                    <Link href="/app/settings">
+                    <Link href="/app/settings?tab=basic-information">
                         <div className={cn("flex flex-col items-center text-muted-foreground text-sm hover:text-primary", pathname.endsWith("/settings") && "text-primary")}>
                             <Settings className="h-5 w-5" />
                             <span>Settings</span>
