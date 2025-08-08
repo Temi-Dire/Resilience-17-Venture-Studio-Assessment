@@ -7,19 +7,38 @@ import { SwitchWithIcon } from "@/client/components/ui-extended/switch-icon";
 import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";
 import { Label } from "@/client/components/ui/label";
-import { TabsContent } from "@/client/components/ui/tabs";
+import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/client/components/ui/tabs";
 import Image from "next/image";
 import { PhoneInput, type CountryData } from "@/client/components/ui-extended/phone-input";
 import { Dropzone, DropzoneContent, DropzoneEmptyState } from "@/client/components/ui-extended/file-dropzone";
 
 export function SettingsClientPage() {
     return (
-        <>
-            <BasicInformation />
-            <SecuritySettings />
-            <Preferences />
-            <AccountSettings />
-        </>
+        <section className="min-h-screen w-screen sm:w-auto">
+            <header className="sticky top-0 mb-2.5 flex w-full items-center justify-between bg-white px-8 py-4 shadow-sm sm:py-8">
+                <h1 className="font-semibold text-xl">Profile Settings</h1>
+            </header>
+            <Tabs defaultValue="basic-information" className="w-full px-8">
+                <TabsList className="my-4 bg-white">
+                    <TabsTrigger value="basic-information" className="text-[#6D797C]">
+                        Basic Information
+                    </TabsTrigger>
+                    <TabsTrigger value="security" className="text-[#6D797C]">
+                        Security
+                    </TabsTrigger>
+                    <TabsTrigger value="preferences" className="text-[#6D797C]">
+                        Preferences
+                    </TabsTrigger>
+                    <TabsTrigger value="account-settings" className="text-[#6D797C]">
+                        Account Settings
+                    </TabsTrigger>
+                </TabsList>
+                <BasicInformation />
+                <SecuritySettings />
+                <Preferences />
+                <AccountSettings />
+            </Tabs>
+        </section>
     );
 }
 
@@ -34,9 +53,6 @@ const BasicInformation = () => {
 
     return (
         <TabsContent value="basic-information" className="gap-7.5 bg-white p-0">
-            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
-                <h1 className="font-medium text-xl">Basic Information</h1>
-            </div>
             <div className="flex flex-col gap-16 px-4 py-6">
                 <div className="relative items-center justify-center">
                     <Dropzone accept={{ "image/*": [] }} maxFiles={10} maxSize={1024 * 1024 * 10} minSize={1024} onDrop={handleDrop} onError={console.error} src={files} className="rounded-xl border-none p-0">
@@ -97,9 +113,6 @@ const SecuritySettings = () => {
 
     return (
         <TabsContent value="security" className="gap-7.5 bg-white p-0">
-            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
-                <h1 className="font-medium text-xl">Security</h1>
-            </div>
             <div className="flex flex-col gap-6 px-9 py-6">
                 <form className="flex flex-col gap-5 rounded-2xl border border-neutral-200 p-6">
                     <h2 className="font-medium text-lg">Change Your Password</h2>
@@ -162,9 +175,6 @@ const SecuritySettings = () => {
 const Preferences = () => {
     return (
         <TabsContent value="preferences" className="gap-7.5 bg-white p-0">
-            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
-                <h1 className="font-medium text-xl">Preferences</h1>
-            </div>
             <div className="flex flex-col gap-6 px-9 py-6">
                 <form className="flex flex-col gap-6 rounded-2xl border border-neutral-200 p-6">
                     <div className="flex flex-col gap-2.5">
@@ -202,9 +212,6 @@ const Preferences = () => {
 const AccountSettings = () => {
     return (
         <TabsContent value="account-settings" className="gap-7.5 bg-white p-0">
-            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
-                <h1 className="font-medium text-xl">Account Settings</h1>
-            </div>
             <div className="flex flex-col gap-6 px-9 py-6">
                 <div className="flex flex-col gap-2.5 rounded-2xl border border-neutral-200 p-6">
                     <h2 className="font-medium text-lg">Account Type</h2>
