@@ -16,7 +16,7 @@ import { basicInfoSchema, passwordSchema, type BasicInfoFormValues } from "@/cli
 
 export function SettingsClientPage() {
     const searchParams = useSearchParams();
-    const tab = searchParams.get('tab');
+    const tab = searchParams.get("tab");
     const router = useRouter();
     return (
         <section className="min-h-screen w-screen sm:w-auto">
@@ -27,16 +27,32 @@ export function SettingsClientPage() {
                 <div className="flex flex-col justify-between gap-5 bg-white px-8 py-6 lg:flex-row">
                     <div className="overflow-x-auto">
                         <TabsList className="flex gap-2 bg-[#F9F9F9] text-sm">
-                            <TabsTrigger value="basic-information" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=basic-information")}>
+                            <TabsTrigger
+                                value="basic-information"
+                                className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white"
+                                onClick={() => router.push("/app/settings?tab=basic-information")}
+                            >
                                 Basic Information
                             </TabsTrigger>
-                            <TabsTrigger value="security" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=security")}>
+                            <TabsTrigger
+                                value="security"
+                                className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white"
+                                onClick={() => router.push("/app/settings?tab=security")}
+                            >
                                 Security
                             </TabsTrigger>
-                            <TabsTrigger value="preferences" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=preferences")}>
+                            <TabsTrigger
+                                value="preferences"
+                                className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white"
+                                onClick={() => router.push("/app/settings?tab=preferences")}
+                            >
                                 Preferences
                             </TabsTrigger>
-                            <TabsTrigger value="account-settings" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=account-settings")}>
+                            <TabsTrigger
+                                value="account-settings"
+                                className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white"
+                                onClick={() => router.push("/app/settings?tab=account-settings")}
+                            >
                                 Account Settings
                             </TabsTrigger>
                         </TabsList>
@@ -91,7 +107,7 @@ const BasicInformation = () => {
         <TabsContent value="basic-information" className="gap-7.5 bg-white p-0">
             <div className="flex flex-col gap-16 px-8 py-6">
                 <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
-                    <div className="flex items-center gap-2 justify-between">
+                    <div className="flex items-center justify-between gap-2">
                         <p className="text-neutral-500 text-xs sm:text-base">You can change your personal information settings here</p>
                         <Button type="button" onClick={handleToggleEdit}>
                             {isEditing ? <CircleCheckBig size={16} /> : <PencilLine size={16} />}
@@ -99,7 +115,7 @@ const BasicInformation = () => {
                         </Button>
                     </div>
 
-                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-9 rounded-2xl border border-neutral-200 p-6">
+                    <div className="grid grid-cols-1 gap-9 rounded-2xl border border-neutral-200 p-6 sm:grid-cols-2">
                         <div className="flex flex-col gap-2">
                             <label htmlFor="first_name">First Name</label>
                             <Input id="first_name" disabled={!isEditing} value={formValues.firstName} onChange={(e) => handleChange("firstName", e.target.value)} />
@@ -323,7 +339,7 @@ const AccountSettings = () => {
                 <div className="flex flex-col gap-2.5 rounded-2xl border border-neutral-200 p-6">
                     <h2 className="font-medium text-lg">Account Type</h2>
 
-                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
+                    <div className="flex flex-col justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3 sm:flex-row sm:items-center">
                         <div className="flex flex-col gap-2">
                             <p className="font-medium text-black text-sm">
                                 You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
@@ -337,7 +353,7 @@ const AccountSettings = () => {
                     <h2 className="font-medium text-lg">Account Management</h2>
 
                     <ul className="flex flex-col gap-5">
-                        <li className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
+                        <li className="flex flex-col justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3 sm:flex-row sm:items-center">
                             <div className="flex flex-col gap-2">
                                 <p className="font-medium text-black text-sm">
                                     You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
@@ -349,7 +365,7 @@ const AccountSettings = () => {
                                 <p>Sign Out</p>
                             </Button>
                         </li>
-                        <li className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-destructive bg-destructive/10 px-2.5 py-3">
+                        <li className="flex flex-col justify-between gap-2 rounded-xl border border-destructive bg-destructive/10 px-2.5 py-3 sm:flex-row sm:items-center">
                             <div className="flex flex-col gap-2">
                                 <p className="font-medium text-black text-sm">
                                     You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>

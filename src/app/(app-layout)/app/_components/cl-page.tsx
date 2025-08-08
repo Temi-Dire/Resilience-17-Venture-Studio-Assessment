@@ -36,7 +36,7 @@ export function HomeClientPage() {
     }, []);
     return (
         <section className="flex min-h-screen w-screen flex-1 flex-col gap-6 bg-white sm:w-auto">
-            <header className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-white px-4 py-4 sm:py-8 shadow-sm sm:flex-wrap sm:gap-0 sm:px-6 md:justify-end md:px-8">
+            <header className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-white px-4 py-4 shadow-sm sm:flex-wrap sm:gap-0 sm:px-6 sm:py-8 md:justify-end md:px-8">
                 {/* Logo (hidden on md and up) */}
                 <Link href="/app" className="relative flex-shrink-0 md:hidden">
                     <Image src="/assets/logo/fintrack-pig-logo.svg" alt="Logo" width={32} height={32} />
@@ -56,10 +56,10 @@ export function HomeClientPage() {
                         <DropdownMenuContent>
                             <DropdownMenuLabel>Profile</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=basic-information')}>Basic Info</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=security')}>Security</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=preferences')}>Preferences</DropdownMenuItem>
-                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=account-settings')}>Account</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push("/app/settings?tab=basic-information")}>Basic Info</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push("/app/settings?tab=security")}>Security</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push("/app/settings?tab=preferences")}>Preferences</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push("/app/settings?tab=account-settings")}>Account</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
 

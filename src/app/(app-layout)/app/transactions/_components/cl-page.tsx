@@ -30,10 +30,7 @@ export function TransactionsClientPage() {
 
         // Filter by search term
         if (searchTerm) {
-            data = data.filter((item) =>
-                [item.id, item.date, item.remark, item.amount, item.currency, item.type]
-                    .some((field) => field.toString().toLowerCase().includes(searchTerm))
-            );
+            data = data.filter((item) => [item.id, item.date, item.remark, item.amount, item.currency, item.type].some((field) => field.toString().toLowerCase().includes(searchTerm)));
         }
 
         // Filter by tab
@@ -46,7 +43,7 @@ export function TransactionsClientPage() {
 
     return (
         <section className="min-h-screen w-screen sm:w-auto">
-            <header className="mb-2.5 flex w-full items-center justify-between bg-white px-8 py-4 sm:py-8 shadow-sm">
+            <header className="mb-2.5 flex w-full items-center justify-between bg-white px-8 py-4 shadow-sm sm:py-8">
                 <h1 className="font-semibold text-xl">Transactions</h1>
             </header>
 

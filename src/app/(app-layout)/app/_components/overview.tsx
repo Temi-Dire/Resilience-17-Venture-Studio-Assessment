@@ -6,7 +6,6 @@ import { Ellipsis } from "lucide-react";
 import { useEffect, useState } from "react";
 
 export function Overview() {
-
     const [loading, setLoading] = useState(true); // Loader state
 
     useEffect(() => {

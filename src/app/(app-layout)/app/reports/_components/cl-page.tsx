@@ -5,7 +5,7 @@ import BarGraph from "@/client/components/shared/bar-graph";
 export function ReportsClientPage() {
     return (
         <section className="min-h-screen w-screen sm:w-auto">
-            <header className="mb-6 flex w-full items-center justify-between bg-white px-8 py-4 sm:py-8 shadow-sm">
+            <header className="mb-6 flex w-full items-center justify-between bg-white px-8 py-4 shadow-sm sm:py-8">
                 <h1 className="font-semibold text-gray-800 text-xl">Reports</h1>
             </header>
 
