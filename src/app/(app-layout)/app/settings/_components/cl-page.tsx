@@ -1,6 +1,6 @@
 "use client";
 
-import { Check, Clock, Eye, EyeOff, LogOut, PencilLine, Trash } from "lucide-react";
+import { Check, CircleCheckBig, Clock, Eye, EyeOff, LogOut, PencilLine, Trash } from "lucide-react";
 import { useState } from "react";
 
 import { SwitchWithIcon } from "@/client/components/ui-extended/switch-icon";
@@ -11,6 +11,8 @@ import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/client/components/ui
 import { PhoneInput, type CountryData } from "@/client/components/ui-extended/phone-input";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/client/components/ui/alert-dialog";
 import { useRouter } from "next/navigation";
+import { toast } from "sonner";
+import { basicInfoSchema, passwordSchema, type BasicInfoFormValues } from "@/client/schema/form-validation";
 
 export function SettingsClientPage() {
     return (
@@ -48,33 +50,75 @@ export function SettingsClientPage() {
 
 const BasicInformation = () => {
     const [countryData, setCountryData] = useState<CountryData | undefined>();
+    const [isEditing, setIsEditing] = useState(false);
+
+    const [formValues, setFormValues] = useState<BasicInfoFormValues>({
+        firstName: "Temidire",
+        lastName: "Owoeye",
+        email: "temidireowoeye@gmail.com",
+        phone: "",
+    });
+
+    const [errors, setErrors] = useState<Partial<Record<keyof BasicInfoFormValues, string>>>({});
+
+    const handleChange = (field: keyof BasicInfoFormValues, value: string) => {
+        setFormValues((prev) => ({ ...prev, [field]: value }));
+        setErrors((prev) => ({ ...prev, [field]: "" }));
+    };
+
+    const handleToggleEdit = () => {
+        if (isEditing) {
+            const result = basicInfoSchema.safeParse(formValues);
+            if (!result.success) {
+                const fieldErrors: any = {};
+                result.error.issues.forEach((err) => {
+                    fieldErrors[err.path[0] as string] = err.message;
+                });
+                setErrors(fieldErrors);
+                toast.error("Please fix all errors before saving.");
+                return;
+            }
+
+            toast.success("Data saved successfully!");
+        }
+        setIsEditing((prev) => !prev);
+    };
 
     return (
         <TabsContent value="basic-information" className="gap-7.5 bg-white p-0">
             <div className="flex flex-col gap-16 px-8 py-6">
-                <form className="flex flex-col gap-6">
+                <form className="flex flex-col gap-6" onSubmit={(e) => e.preventDefault()}>
                     <div className="flex items-center gap-2 justify-between">
                         <p className="text-neutral-500 text-xs sm:text-base">You can change your personal information settings here</p>
-                        <Button>
-                            <PencilLine size={16} /> Edit
+                        <Button type="button" onClick={handleToggleEdit}>
+                            {isEditing ? <CircleCheckBig size={16} /> : <PencilLine size={16} />}
+                            {isEditing ? "Save" : "Edit"}
                         </Button>
                     </div>
+
                     <div className="grid grid-cols-1 sm:grid-cols-2 gap-9 rounded-2xl border border-neutral-200 p-6">
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="first-name">First Name</label>
-                            <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" value="John" />
+                            <label htmlFor="first_name">First Name</label>
+                            <Input id="first_name" disabled={!isEditing} value={formValues.firstName} onChange={(e) => handleChange("firstName", e.target.value)} />
+                            {errors.firstName && <span className="text-red-500 text-sm">{errors.firstName}</span>}
                         </div>
+
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="first-name">Last Name</label>
-                            <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" value="Doe" />
+                            <label htmlFor="last_name">Last Name</label>
+                            <Input id="last_name" disabled={!isEditing} value={formValues.lastName} onChange={(e) => handleChange("lastName", e.target.value)} />
+                            {errors.lastName && <span className="text-red-500 text-sm">{errors.lastName}</span>}
                         </div>
+
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="first-name">Email</label>
-                            <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" value="johndoe123@gmail.com" />
+                            <label htmlFor="email">Email</label>
+                            <Input id="email" disabled={!isEditing} value={formValues.email} onChange={(e) => handleChange("email", e.target.value)} />
+                            {errors.email && <span className="text-red-500 text-sm">{errors.email}</span>}
                         </div>
+
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="first-name">Phone Number</label>
-                            <PhoneInput countryData={countryData} setCountryData={setCountryData} className="h-10 shadow-none md:h-14" />
+                            <label htmlFor="phone">Phone Number</label>
+                            <PhoneInput id="phone" disabled={!isEditing} countryData={countryData} setCountryData={setCountryData} value={formValues.phone} onChange={(e) => handleChange("phone", e.target.value)} />
+                            {errors.phone && <span className="text-red-500 text-sm">{errors.phone}</span>}
                         </div>
                     </div>
                 </form>
@@ -83,52 +127,119 @@ const BasicInformation = () => {
     );
 };
 
-const SecuritySettings = () => {
-    const [showCurrentPassword, setShowCurrentPassword] = useState<boolean>();
-    const [showNewPassword, setShowNewPassword] = useState<boolean>();
-    const [showConfirmNewPassword, setShowConfirmNewPassword] = useState<boolean>();
+export const SecuritySettings = () => {
+    const [showCurrentPassword, setShowCurrentPassword] = useState(false);
+    const [showNewPassword, setShowNewPassword] = useState(false);
+    const [showConfirmNewPassword, setShowConfirmNewPassword] = useState(false);
+
+    const [formValues, setFormValues] = useState({
+        currentPassword: "",
+        newPassword: "",
+        confirmPassword: "",
+    });
+
+    const [errors, setErrors] = useState<{
+        currentPassword?: string;
+        newPassword?: string;
+        confirmPassword?: string;
+    }>({});
 
     const router = useRouter();
+
+    const handleChange = (field: keyof typeof formValues, value: string) => {
+        setFormValues((prev) => ({ ...prev, [field]: value }));
+    };
+
+    const handleSubmit = (e: React.FormEvent) => {
+        e.preventDefault();
+        const validation = passwordSchema.safeParse(formValues);
+
+        if (!validation.success) {
+            const formatted = validation.error.format();
+            setErrors({
+                currentPassword: formatted.currentPassword?._errors[0],
+                newPassword: formatted.newPassword?._errors[0],
+                confirmPassword: formatted.confirmPassword?._errors[0],
+            });
+            return;
+        }
+
+        setErrors({});
+        toast.success("Password changed successfully!");
+        setFormValues({
+            currentPassword: "",
+            newPassword: "",
+            confirmPassword: "",
+        });
+    };
 
     return (
         <TabsContent value="security" className="gap-7.5 bg-white p-0">
             <div className="flex flex-col gap-6 px-9 py-6">
-                <form className="flex flex-col gap-5 rounded-2xl border border-neutral-200 p-6">
+                <form className="flex flex-col gap-5 rounded-2xl border border-neutral-200 p-6" onSubmit={handleSubmit}>
                     <h2 className="font-medium text-base sm:text-lg">Change Your Password</h2>
                     <div className="flex flex-col gap-6 text-sm sm:text-base">
+                        {/* Current Password */}
                         <div className="flex flex-col gap-2">
                             <Label className="text-black">Current Password</Label>
                             <div className="relative">
-                                <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" placeholder="cicmediatv" type={showCurrentPassword ? "text" : "password"} />
+                                <Input
+                                    className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14"
+                                    placeholder="Enter current password"
+                                    type={showCurrentPassword ? "text" : "password"}
+                                    value={formValues.currentPassword}
+                                    onChange={(e) => handleChange("currentPassword", e.target.value)}
+                                />
                                 <button className="-translate-y-1/2 absolute top-1/2 right-3 text-neutral-400" type="button" onClick={() => setShowCurrentPassword(!showCurrentPassword)}>
                                     {showCurrentPassword ? <Eye className="!w-4 md:!w-6 !h-4 md:!h-6" /> : <EyeOff className="!w-4 md:!w-6 !h-4 md:!h-6 -scale-x-100 transform" />}
                                 </button>
                             </div>
+                            {errors.currentPassword && <p className="text-red-500 text-xs">{errors.currentPassword}</p>}
                         </div>
+
+                        {/* New Password */}
                         <div className="flex flex-col gap-2">
                             <Label className="text-black">New Password</Label>
                             <div className="relative">
-                                <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" placeholder="cicmediatv" type={showNewPassword ? "text" : "password"} />
+                                <Input
+                                    className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14"
+                                    placeholder="Enter new password"
+                                    type={showNewPassword ? "text" : "password"}
+                                    value={formValues.newPassword}
+                                    onChange={(e) => handleChange("newPassword", e.target.value)}
+                                />
                                 <button className="-translate-y-1/2 absolute top-1/2 right-3 text-neutral-400" type="button" onClick={() => setShowNewPassword(!showNewPassword)}>
                                     {showNewPassword ? <Eye className="!w-4 md:!w-6 !h-4 md:!h-6" /> : <EyeOff className="!w-4 md:!w-6 !h-4 md:!h-6 -scale-x-100 transform" />}
                                 </button>
                             </div>
+                            {errors.newPassword && <p className="text-red-500 text-xs">{errors.newPassword}</p>}
                         </div>
+
+                        {/* Confirm Password */}
                         <div className="flex flex-col gap-2">
                             <Label className="text-black">Confirm New Password</Label>
                             <div className="relative">
-                                <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" placeholder="cicmediatv" type={showConfirmNewPassword ? "text" : "password"} />
+                                <Input
+                                    className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14"
+                                    placeholder="Confirm new password"
+                                    type={showConfirmNewPassword ? "text" : "password"}
+                                    value={formValues.confirmPassword}
+                                    onChange={(e) => handleChange("confirmPassword", e.target.value)}
+                                />
                                 <button className="-translate-y-1/2 absolute top-1/2 right-3 text-neutral-400" type="button" onClick={() => setShowConfirmNewPassword(!showConfirmNewPassword)}>
                                     {showConfirmNewPassword ? <Eye className="!w-4 md:!w-6 !h-4 md:!h-6" /> : <EyeOff className="!w-4 md:!w-6 !h-4 md:!h-6 -scale-x-100 transform" />}
                                 </button>
                             </div>
+                            {errors.confirmPassword && <p className="text-red-500 text-xs">{errors.confirmPassword}</p>}
                         </div>
 
-                        <Button className="h-10 w-35 gap-1 rounded-full font-semibold text-sm">
+                        <Button type="submit" className="h-10 w-35 gap-1 rounded-full font-semibold text-sm">
                             <p>Save Password</p>
                         </Button>
                     </div>
                 </form>
+
+                {/* Login Info */}
                 <div className="flex flex-col gap-6 rounded-2xl border border-neutral-200 p-6">
                     <div className="flex flex-col gap-2.5">
                         <h2 className="font-medium text-lg">Login Information</h2>
@@ -141,6 +252,7 @@ const SecuritySettings = () => {
                         </div>
                     </div>
 
+                    {/* Logout Dialog */}
                     <AlertDialog>
                         <AlertDialogTrigger>
                             <Button variant={"destructive"} className="flex justify-start">
@@ -154,13 +266,7 @@ const SecuritySettings = () => {
                             </AlertDialogHeader>
                             <AlertDialogFooter>
                                 <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                <AlertDialogAction
-                                    onClick={() => {
-                                        router.push("/app");
-                                    }}
-                                >
-                                    Continue
-                                </AlertDialogAction>
+                                <AlertDialogAction onClick={() => router.push("/app")}>Continue</AlertDialogAction>
                             </AlertDialogFooter>
                         </AlertDialogContent>
                     </AlertDialog>

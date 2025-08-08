@@ -153,7 +153,7 @@ export function HomeClientPage() {
                                     </AlertDialogHeader>
                                     <AlertDialogFooter>
                                         <AlertDialogCancel>Cancel</AlertDialogCancel>
-                                        <AlertDialogAction onClick={() => toast.success("Deletion successful")}>Continue</AlertDialogAction>
+                                        <AlertDialogAction onClick={() => toast.success(`${selected} has been deleted successfully!`)}>Continue</AlertDialogAction>
                                     </AlertDialogFooter>
                                 </AlertDialogContent>
                             </AlertDialog>
