@@ -185,7 +185,7 @@ export const SecuritySettings = () => {
                             <div className="relative">
                                 <Input
                                     className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14"
-                                    placeholder="Enter current password"
+                                    placeholder="test1234"
                                     type={showCurrentPassword ? "text" : "password"}
                                     value={formValues.currentPassword}
                                     onChange={(e) => handleChange("currentPassword", e.target.value)}
