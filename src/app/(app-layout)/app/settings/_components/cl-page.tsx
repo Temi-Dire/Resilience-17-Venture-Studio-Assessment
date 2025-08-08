@@ -10,30 +10,33 @@ import { Label } from "@/client/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/client/components/ui/tabs";
 import { PhoneInput, type CountryData } from "@/client/components/ui-extended/phone-input";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/client/components/ui/alert-dialog";
-import { useRouter } from "next/navigation";
+import { useRouter, useSearchParams } from "next/navigation";
 import { toast } from "sonner";
 import { basicInfoSchema, passwordSchema, type BasicInfoFormValues } from "@/client/schema/form-validation";
 
 export function SettingsClientPage() {
+    const searchParams = useSearchParams();
+    const tab = searchParams.get('tab');
+    const router = useRouter();
     return (
         <section className="min-h-screen w-screen sm:w-auto">
             <header className="sticky top-0 mb-2.5 flex w-full items-center justify-between bg-white px-8 py-4 shadow-sm sm:py-8">
                 <h1 className="font-semibold text-xl">Profile Settings</h1>
             </header>
-            <Tabs defaultValue="basic-information" className="w-full">
+            <Tabs value={tab as string} defaultValue="basic-information" className="w-full">
                 <div className="flex flex-col justify-between gap-5 bg-white px-8 py-6 lg:flex-row">
                     <div className="overflow-x-auto">
                         <TabsList className="flex gap-2 bg-[#F9F9F9] text-sm">
-                            <TabsTrigger value="basic-information" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                            <TabsTrigger value="basic-information" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=basic-information")}>
                                 Basic Information
                             </TabsTrigger>
-                            <TabsTrigger value="security" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                            <TabsTrigger value="security" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=security")}>
                                 Security
                             </TabsTrigger>
-                            <TabsTrigger value="preferences" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                            <TabsTrigger value="preferences" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=preferences")}>
                                 Preferences
                             </TabsTrigger>
-                            <TabsTrigger value="account-settings" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                            <TabsTrigger value="account-settings" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white" onClick={() => router.push("/app/settings?tab=account-settings")}>
                                 Account Settings
                             </TabsTrigger>
                         </TabsList>

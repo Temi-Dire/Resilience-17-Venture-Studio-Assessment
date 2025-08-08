@@ -128,7 +128,7 @@ export function AppSidebar() {
                                 </SidebarMenuItem>
                                 <SidebarMenuItem>
                                     <a
-                                        href="/app/settings"
+                                        href="/app/settings?tab=basic-information"
                                         className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-sm text-black transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
                                             "!p-4.5": collapsed,
                                             "!bg-[#DDF2EE] !text-[#261E4C]": pathname.includes("/app/settings"),

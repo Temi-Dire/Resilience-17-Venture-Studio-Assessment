@@ -54,12 +54,12 @@ export function HomeClientPage() {
                             <Image src={"/assets/icons/dashboard.svg"} alt="Dashboard Icon" width={24} height={24} />
                         </DropdownMenuTrigger>
                         <DropdownMenuContent>
-                            <DropdownMenuLabel>Menu</DropdownMenuLabel>
+                            <DropdownMenuLabel>Profile</DropdownMenuLabel>
                             <DropdownMenuSeparator />
-                            <DropdownMenuItem>Profile</DropdownMenuItem>
-                            <DropdownMenuItem>Billing</DropdownMenuItem>
-                            <DropdownMenuItem>Team</DropdownMenuItem>
-                            <DropdownMenuItem>Subscription</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=basic-information')}>Basic Info</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=security')}>Security</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=preferences')}>Preferences</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => router.push('/app/settings?tab=account-settings')}>Account</DropdownMenuItem>
                         </DropdownMenuContent>
                     </DropdownMenu>
 
