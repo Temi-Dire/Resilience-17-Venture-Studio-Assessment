@@ -116,10 +116,10 @@ const TransactionCard = (props: { data: Transaction }) => {
 };
 
 export const transactionDummyData: Transaction[] = [
-    { id: "INV001", date: "", remark: "Declined", amount: 4000, currency: "USD", type: "Credit" },
-    { id: "INV002", date: "", remark: "Pending", amount: 3000, currency: "NGN", type: "Credit" },
-    { id: "INV003", date: "", remark: "Pending", amount: 4500, currency: "NGN", type: "Credit" },
-    { id: "INV004", date: "", remark: "Processed", amount: 6000, currency: "USD", type: "Credit" },
-    { id: "INV005", date: "", remark: "Declined", amount: 1000, currency: "USD", type: "Credit" },
-    { id: "INV006", date: "", remark: "Processed", amount: 2000, currency: "NGN", type: "Credit" },
+    { id: "INV001", date: "2023-10-01", remark: "Declined", amount: 4000, currency: "USD", type: "Credit" },
+    { id: "INV002", date: "2023-10-02", remark: "Pending", amount: 3000, currency: "NGN", type: "Credit" },
+    { id: "INV003", date: "2023-10-03", remark: "Pending", amount: 4500, currency: "NGN", type: "Credit" },
+    { id: "INV004", date: "2023-10-04", remark: "Processed", amount: 6000, currency: "USD", type: "Credit" },
+    { id: "INV005", date: "2023-10-05", remark: "Declined", amount: 1000, currency: "USD", type: "Credit" },
+    { id: "INV006", date: "2023-10-06", remark: "Processed", amount: 2000, currency: "NGN", type: "Credit" },
 ];
