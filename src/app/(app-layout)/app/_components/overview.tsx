@@ -19,7 +19,7 @@ export function Overview() {
             {/* Summary Cards */}
             <div className="mb-8 grid grid-cols-1 gap-7 sm:grid-cols-2 lg:grid-cols-4">
                 {summaryCards.map((card, i) => (
-                    <Card key={i} className="w-full bg-[#EAEFF0]">
+                    <Card key={i} className="w-full cursor-pointer bg-[#EAEFF0] transition-transform duration-300 ease-in-out hover:scale-[1.03] hover:shadow-lg">
                         <CardHeader className="flex items-center justify-between gap-2">
                             <CardTitle className="flex-1">{loading ? <Skeleton className="h-6 flex-1 bg-neutral-300" /> : card.title}</CardTitle>
                             <CardAction className="my-auto">
