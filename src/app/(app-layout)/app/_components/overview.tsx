@@ -187,7 +187,7 @@ export function Overview() {
                             <TableRow key={transaction.id}>
                                 <TableCell className="font-medium">{transaction.date}</TableCell>
                                 <TableCell>{transaction.remark}</TableCell>
-                                <TableCell className="text-left">{formatCurrency(transaction.amount, transaction.currency)}</TableCell>
+                                <TableCell className="text-left">{formatCurrency(transaction.amount)}</TableCell>
                                 <TableCell className="text-left">{transaction.currency}</TableCell>
                                 <TableCell className="text-left">
                                     <Badge variant="secondary" className="gap-2 rounded-full px-3 py-2">
