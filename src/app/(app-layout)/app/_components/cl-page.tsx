@@ -18,6 +18,7 @@ import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, Di
 import { Input } from "@/client/components/ui/input";
 import { Label } from "@/client/components/ui/label";
 import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/client/components/ui/alert-dialog";
+import { toast } from "sonner";
 
 export function HomeClientPage() {
     const [selected, setSelected] = useState("Wallet Ledger");
@@ -35,7 +36,7 @@ export function HomeClientPage() {
     }, []);
     return (
         <section className="flex min-h-screen w-full w-screen flex-1 flex-col gap-6 bg-white sm:w-auto">
-            <header className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-white px-4 py-4 shadow-sm sm:flex-wrap sm:gap-0 sm:px-6 md:justify-end md:px-8">
+            <header className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-white px-4 py-4 sm:py-8 shadow-sm sm:flex-wrap sm:gap-0 sm:px-6 md:justify-end md:px-8">
                 {/* Logo (hidden on md and up) */}
                 <Link href="/app" className="relative flex-shrink-0 md:hidden">
                     <Image src="/assets/logo/fintrack-pig-logo.svg" alt="Logo" width={32} height={32} />
@@ -136,7 +137,7 @@ export function HomeClientPage() {
                         </DropdownMenuTrigger>
 
                         <DropdownMenuContent align="end" className="w-48">
-                            <DropdownMenuItem onClick={() => alert("Document is downloading")}>Download PDF</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => toast.success("Document is downloading")}>Download PDF</DropdownMenuItem>
                             <DropdownMenuSeparator />
 
                             <AlertDialog>

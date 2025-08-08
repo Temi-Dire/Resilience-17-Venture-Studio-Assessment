@@ -28,15 +28,15 @@ export function TransactionsClientPage() {
     const filteredData = useMemo(() => {
         let data = transactionDummyData;
 
-        // 🔍 Filter by search term
+        // Filter by search term
         if (searchTerm) {
             data = data.filter((item) =>
-                [item.id, item.date, item.remark, item.amount, item.currency, item.type] // adjust for real fields
+                [item.id, item.date, item.remark, item.amount, item.currency, item.type]
                     .some((field) => field.toString().toLowerCase().includes(searchTerm))
             );
         }
 
-        // 📌 Filter by tab
+        // Filter by tab
         if (activeTab !== "All") {
             data = data.filter((item) => item.remark === activeTab);
         }
@@ -46,7 +46,7 @@ export function TransactionsClientPage() {
 
     return (
         <section className="min-h-screen w-screen sm:w-auto">
-            <header className="mb-2.5 flex w-full items-center justify-between bg-white px-8 py-8 shadow-sm">
+            <header className="mb-2.5 flex w-full items-center justify-between bg-white px-8 py-4 sm:py-8 shadow-sm">
                 <h1 className="font-semibold text-xl">Transactions</h1>
             </header>
 
