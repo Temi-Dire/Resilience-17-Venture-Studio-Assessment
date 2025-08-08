@@ -1,0 +1,125 @@
+{
+    "$schema": "https://biomejs.dev/schemas/2.1.2/schema.json",
+    "vcs": {
+        "enabled": true,
+        "clientKind": "git",
+        "useIgnoreFile": true
+    },
+    "files": {
+        "ignoreUnknown": false
+    },
+    "formatter": {
+        "enabled": true,
+        "indentStyle": "space",
+        "indentWidth": 4,
+        "lineWidth": 240
+    },
+    "assist": {
+        "enabled": true,
+        "actions": {
+            "source": {
+                "organizeImports": "off"
+            }
+        }
+    },
+    "linter": {
+        "enabled": true,
+        "rules": {
+            "recommended": true,
+            "a11y": {
+                "noSvgWithoutTitle": "off",
+                "useKeyWithClickEvents": "off",
+                "useKeyWithMouseEvents": "off",
+                "useSemanticElements": "off",
+                "useAriaPropsForRole": "off"
+            },
+            "complexity": {
+                "noUselessStringConcat": "error",
+                "useDateNow": "error"
+            },
+            "correctness": {
+                "noConstantMathMinMaxClamp": "error",
+                "noUndeclaredVariables": "error",
+                "noUndeclaredDependencies": "error",
+                "noUnusedFunctionParameters": "error",
+                "noUnusedImports": "error",
+                "noUnusedPrivateClassMembers": "error",
+                "noUnusedVariables": "error",
+                "useExhaustiveDependencies": "off",
+                "useHookAtTopLevel": "error",
+                "noChildrenProp": "off"
+            },
+            "nursery": {
+                "useSortedClasses": {
+                    "level": "warn",
+                    "fix": "safe",
+                    "options": {
+                        "functions": ["clsx", "cva", "cn"]
+                    }
+                }
+            },
+            "style": {
+                "noDefaultExport": "off",
+                "noDoneCallback": "error",
+                "noNamespace": "error",
+                "noYodaExpression": "error",
+                "useConsistentArrayType": {
+                    "level": "error",
+                    "options": {
+                        "syntax": "shorthand"
+                    }
+                },
+                "useDefaultSwitchClause": "error",
+                "useFilenamingConvention": {
+                    "level": "error",
+                    "options": {
+                        "strictCase": true,
+                        "requireAscii": true,
+                        "filenameCases": ["kebab-case", "export"]
+                    }
+                },
+                "useForOf": "error",
+                "useFragmentSyntax": "error",
+                "useShorthandAssign": "error",
+                "useThrowNewError": "error",
+                "useThrowOnlyError": "error",
+                "noInferrableTypes": "off",
+                "noParameterAssign": "error",
+                "useDefaultParameterLast": "error",
+                "useSelfClosingElements": "error",
+                "useSingleVarDeclarator": "error",
+                "noUnusedTemplateLiteral": "error",
+                "useNumberNamespace": "error",
+                "noUselessElse": "error",
+                "useTrimStartEnd": "error"
+            },
+            "suspicious": {
+                "noEmptyBlockStatements": "error",
+                "noMisplacedAssertion": "error",
+                "useAwait": "off",
+                "useErrorMessage": "error",
+                "useNumberToFixedDigitsArgument": "error",
+                "noExplicitAny": "off",
+                "noArrayIndexKey": "off",
+                "noDuplicateCustomProperties": "error"
+            }
+        }
+    },
+    "javascript": {
+        "formatter": {
+            "enabled": true,
+            "quoteStyle": "double",
+            "trailingCommas": "es5"
+        }
+    },
+    "json": {
+        "formatter": {
+            "enabled": true
+        }
+    },
+    "css": {
+        "formatter": {
+            "enabled": true
+        }
+    }
+}
