@@ -80,7 +80,7 @@ const BasicInformation = () => {
                             <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" value="johndoe123@gmail.com" />
                         </div>
                         <div className="flex flex-col gap-2">
-                            <label htmlFor="first-name">Email</label>
+                            <label htmlFor="first-name">Phone Number</label>
                             <PhoneInput countryData={countryData} setCountryData={setCountryData} className="h-10 shadow-none md:h-14" />
                         </div>
                     </div>
@@ -180,7 +180,7 @@ const Preferences = () => {
                             <li className="flex items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
                                 <div className="flex flex-col gap-2">
                                     <p className="font-medium text-black text-sm">Product Updates</p>
-                                    <p className="text-black text-xs">Stay informed about new features and improvements on Planham.</p>
+                                    <p className="text-black text-xs">Stay informed about new features and improvements on FinTrack.</p>
                                 </div>
                                 <SwitchWithIcon checkedIcon={<Check className="h-8 w-8 text-green-900" />} uncheckedIcon={null} />
                             </li>
@@ -212,11 +212,11 @@ const AccountSettings = () => {
                     <div className="flex items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
                         <div className="flex flex-col gap-2">
                             <p className="font-medium text-black text-sm">
-                                You're currently using Planham as a: <span className="font-semibold text-destructive">USER</span>
+                                You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
                             </p>
                             <p className="text-black text-xs">Book and manage events with ease</p>
                         </div>
-                        <Button className="rounded-full text-sm">Switch to Vendor Account</Button>
+                        <Button className="rounded-full text-sm">Switch to Admin Account</Button>
                     </div>
                 </div>
                 <div className="flex flex-col gap-2.5 rounded-2xl border border-neutral-200 p-6">
@@ -226,7 +226,7 @@ const AccountSettings = () => {
                         <li className="flex items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
                             <div className="flex flex-col gap-2">
                                 <p className="font-medium text-black text-sm">
-                                    You're currently using Planham as a: <span className="font-semibold text-destructive">USER</span>
+                                    You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
                                 </p>
                                 <p className="text-black text-xs">Book and manage events with ease</p>
                             </div>
@@ -238,7 +238,7 @@ const AccountSettings = () => {
                         <li className="flex items-center justify-between gap-2 rounded-xl border border-destructive bg-destructive/10 px-2.5 py-3">
                             <div className="flex flex-col gap-2">
                                 <p className="font-medium text-black text-sm">
-                                    You're currently using Planham as a: <span className="font-semibold text-destructive">USER</span>
+                                    You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
                                 </p>
                                 <p className="text-black text-xs">Book and manage events with ease</p>
                             </div>

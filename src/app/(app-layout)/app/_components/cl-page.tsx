@@ -1,55 +1,163 @@
 "use client";
 
-import { Ellipsis, Search } from "lucide-react";
+import { Ellipsis } from "lucide-react";
 import Image from "next/image";
-import { Input } from "@/client/components/ui/input";
 import { Avatar, AvatarFallback, AvatarImage } from "@/client/components/ui/avatar";
-import { DropdownMenu, DropdownMenuContent, DropdownMenuTrigger } from "@/client/components/ui/dropdown-menu";
+import { DropdownMenu, DropdownMenuContent, DropdownMenuItem, DropdownMenuLabel, DropdownMenuSeparator, DropdownMenuTrigger } from "@/client/components/ui/dropdown-menu";
 import { Badge } from "@/client/components/ui/badge";
 import { Button } from "@/client/components/ui/button";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/client/components/ui/tabs";
 import { Overview } from "./overview";
 import { Transactions } from "./transactions";
+import Link from "next/link";
+import { useEffect, useState } from "react";
+import { Tooltip, TooltipContent, TooltipTrigger } from "@/client/components/ui/tooltip";
+import { useRouter } from "next/navigation";
+import CategorySearch from "@/client/components/shared/category-search";
+import { Dialog, DialogClose, DialogContent, DialogDescription, DialogFooter, DialogHeader, DialogTitle, DialogTrigger } from "@/client/components/ui/dialog";
+import { Input } from "@/client/components/ui/input";
+import { Label } from "@/client/components/ui/label";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/client/components/ui/alert-dialog";
 
 export function HomeClientPage() {
+    const [selected, setSelected] = useState("Wallet Ledger");
+    const router = useRouter();
+
+    const handleSelect = (value: string) => {
+        setSelected(value);
+    };
+
+    const [currentUrl, setCurrentUrl] = useState("");
+
+    useEffect(() => {
+        // Runs only on client
+        setCurrentUrl(window.location.href);
+    }, []);
     return (
-        <section className="flex w-full flex-1 flex-col gap-6 bg-gray-50 min-h-screen">
-            <header className="flex justify-end py-8 bg-white shadow-sm px-8">
-                <div className="flex items-center gap-7">
-                    <div className="flex w-80 flex-1 items-center gap-2.5 rounded-4xl border px-4 transition-colors focus-within:border-[#437D8E]">
-                        <Input className="border-none px-0 font-normal text-black shadow-none outline-0 ring-0 placeholder:text-black focus-visible:ring-0" placeholder="Search" />
-                        <Search className="!w-5 !h-5" />
+        <section className="flex min-h-screen w-full flex-1 flex-col gap-6 bg-white w-screen sm:w-auto">
+            <header className="sticky top-0 z-10 flex gap-2 sm:gap-0 sm:flex-wrap items-center justify-between md:justify-end bg-white px-4 sm:px-6 md:px-8 py-4 shadow-sm">
+                {/* Logo (hidden on md and up) */}
+                <Link href="/app" className="relative flex-shrink-0 md:hidden">
+                    <Image src="/assets/logo/fintrack-pig-logo.svg" alt="Logo" width={32} height={32} />
+                </Link>
+
+                {/* Right section */}
+                <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-7 min-w-0">
+                    <div className="flex-1 min-w-0">
+                        <CategorySearch onSelect={(val) => setSelected(val)} />
                     </div>
-                    <Image src={"/assets/icons/dashboard.svg"} alt="Dashboard Icon" width={24} height={24} />
-                    <Avatar>
-                        <AvatarImage src="/assets/images/profile-picture.svg" alt="@shadcn" />
-                        <AvatarFallback>TD</AvatarFallback>
-                    </Avatar>
+
+                    {/* Dropdown Menu */}
+                    <DropdownMenu>
+                        <DropdownMenuTrigger>
+                            <Image src={"/assets/icons/dashboard.svg"} alt="Dashboard Icon" width={24} height={24} />
+                        </DropdownMenuTrigger>
+                        <DropdownMenuContent>
+                            <DropdownMenuLabel>Menu</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem>Profile</DropdownMenuItem>
+                            <DropdownMenuItem>Billing</DropdownMenuItem>
+                            <DropdownMenuItem>Team</DropdownMenuItem>
+                            <DropdownMenuItem>Subscription</DropdownMenuItem>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
+
+                    {/* Profile Avatar */}
+                    <Tooltip>
+                        <TooltipTrigger onClick={() => router.push("/app/settings")}>
+                            <Avatar>
+                                <AvatarImage src="/assets/images/profile-picture.svg" alt="@shadcn" />
+                                <AvatarFallback>TD</AvatarFallback>
+                            </Avatar>
+                        </TooltipTrigger>
+                        <TooltipContent>
+                            <p>Profile Settings</p>
+                        </TooltipContent>
+                    </Tooltip>
                 </div>
             </header>
-            <div className="flex flex-col gap-4 md:gap-0 md:flex-row w-full md:items-center justify-between px-8">
+
+            <div className="flex w-full flex-col justify-between gap-4 px-8 md:flex-row md:items-center md:gap-0">
                 <div>
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <div className="ml-auto flex items-center gap-2 ">
+                            <div className="ml-auto flex cursor-pointer items-center gap-2">
                                 <div className="flex items-center gap-2 border-none">
-                                    <h1 className="font-bold text-4xl">Wallet Ledger</h1>
+                                    <h1 className="font-bold text-xl sm:text-4xl ">{selected}</h1>
                                     <Image src={"/assets/icons/dropdown-icon.svg"} alt="dropdown" width={24} height={24} />
                                 </div>
-                                <Badge variant="secondary" className="rounded-full py-2 px-3">
+                                <Badge variant="secondary" className="rounded-full px-3 py-2">
                                     <div className="size-1.5 rounded-full bg-[#087A2E]" />
                                     <p>Active</p>
                                 </Badge>
                             </div>
                         </DropdownMenuTrigger>
-                        <DropdownMenuContent align="start">e</DropdownMenuContent>
+                        <DropdownMenuContent align="start" className="w-56">
+                            <DropdownMenuLabel>Filter by Category</DropdownMenuLabel>
+                            <DropdownMenuSeparator />
+                            <DropdownMenuItem onClick={() => handleSelect("Wallet Ledger")}>Wallet Ledger</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleSelect("Bills & Utilities")}>Bills & Utilities</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleSelect("Subscriptions")}>Subscriptions</DropdownMenuItem>
+                            <DropdownMenuItem onClick={() => handleSelect("Others")}>Others</DropdownMenuItem>
+                        </DropdownMenuContent>
                     </DropdownMenu>
                 </div>
                 <div className="flex items-center gap-4">
-                    <Button className="text-black rounded-2xl">Share</Button>
-                    <Button className="bg-white border border-[#D8DFE0] rounded-full">
-                        <Ellipsis color="black" />
-                    </Button>
+                    <Dialog>
+                        <form>
+                            <DialogTrigger asChild>
+                                <Button className="text-black">Share</Button>
+                            </DialogTrigger>
+                            <DialogContent className="sm:max-w-[425px]">
+                                <DialogHeader>
+                                    <DialogTitle>Share Fintrack Report</DialogTitle>
+                                    <DialogDescription>Copy the link below so you can share with your team.</DialogDescription>
+                                </DialogHeader>
+                                <div className="grid gap-4">
+                                    <div className="grid gap-3">
+                                        <Label htmlFor="name-1">Url</Label>
+                                        <Input id="name-1" name="name" value={currentUrl} defaultValue={currentUrl} />
+                                    </div>
+                                </div>
+                                <DialogFooter>
+                                    <DialogClose asChild>
+                                        <Button variant="outline">Cancel</Button>
+                                    </DialogClose>
+                                </DialogFooter>
+                            </DialogContent>
+                        </form>
+                    </Dialog>
+
+                    <DropdownMenu>
+                        <DropdownMenuTrigger asChild>
+                            <Button className="bg-white border border-[#D8DFE0] rounded-full text-black hover:text-white" variant="ghost">
+                                <Ellipsis />
+                            </Button>
+                        </DropdownMenuTrigger>
+
+                        <DropdownMenuContent align="end" className="w-48">
+                            <DropdownMenuItem onClick={() => alert("Document is downloading")}>Download PDF</DropdownMenuItem>
+                            <DropdownMenuSeparator />
+
+                            <AlertDialog>
+                                <AlertDialogTrigger asChild>
+                                    <Button variant={"secondary"} className="cursor-pointer -mx-1 bg-white text-red-500 hover:bg-white shadow-none">
+                                        Delete
+                                    </Button>
+                                </AlertDialogTrigger>
+                                <AlertDialogContent>
+                                    <AlertDialogHeader>
+                                        <AlertDialogTitle>Are you absolutely sure?</AlertDialogTitle>
+                                        <AlertDialogDescription>This action cannot be undone. This will permanently delete this category and remove the data from our servers.</AlertDialogDescription>
+                                    </AlertDialogHeader>
+                                    <AlertDialogFooter>
+                                        <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                        <AlertDialogAction>Continue</AlertDialogAction>
+                                    </AlertDialogFooter>
+                                </AlertDialogContent>
+                            </AlertDialog>
+                        </DropdownMenuContent>
+                    </DropdownMenu>
                 </div>
             </div>
             <div className="flex items-center gap-1 text-[#6D797C] text-xs tracking-tighter px-8">
@@ -67,11 +175,7 @@ export function HomeClientPage() {
                         <AvatarFallback>ER</AvatarFallback>
                     </Avatar>
                     <Avatar>
-                        <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
-                        <AvatarFallback>ER</AvatarFallback>
-                    </Avatar>
-                    <Avatar>
-                        <AvatarImage src="https://github.com/evilrabbit.png" alt="@evilrabbit" />
+                        <AvatarImage src="https://github.com/leerob.png" alt="@evilrabbit" />
                         <AvatarFallback>ER</AvatarFallback>
                     </Avatar>
                 </div>
@@ -80,11 +184,19 @@ export function HomeClientPage() {
             </div>
             <Tabs defaultValue="overview" className="w-full px-8">
                 <TabsList className="my-4 bg-white">
-                    <TabsTrigger value="overview">Overview</TabsTrigger>
-                    <TabsTrigger value="password">Transactions</TabsTrigger>
+                    <TabsTrigger value="overview" className="text-[#6D797C]">
+                        Overview
+                    </TabsTrigger>
+                    <TabsTrigger value="password" className="text-[#6D797C]">
+                        Transactions
+                    </TabsTrigger>
                 </TabsList>
-                <TabsContent value="overview"><Overview /></TabsContent>
-                <TabsContent value="password"><Transactions /></TabsContent>
+                <TabsContent value="overview">
+                    <Overview />
+                </TabsContent>
+                <TabsContent value="password">
+                    <Transactions />
+                </TabsContent>
             </Tabs>
         </section>
     );

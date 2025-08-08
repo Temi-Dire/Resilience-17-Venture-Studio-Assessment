@@ -21,7 +21,7 @@ export function AppSidebar() {
     const pathname = usePathname();
 
     return (
-        <Sidebar collapsible="icon" className="border-none">
+        <Sidebar collapsible="icon" className="z-20 border-none">
             <SidebarContent className="flex flex-col justify-between bg-white p-0">
                 <SidebarGroup className="flex flex-1 justify-between gap-11 p-0">
                     <SidebarGroupContent className="flex flex-1 flex-col justify-between gap-11">

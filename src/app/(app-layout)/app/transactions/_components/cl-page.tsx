@@ -45,7 +45,7 @@ export function TransactionsClientPage() {
     }, [activeTab, searchTerm]);
 
     return (
-        <section className="min-h-screen">
+        <section className="min-h-screen w-screen sm:w-auto">
             <header className="mb-2.5 flex w-full items-center justify-between bg-white py-8 px-8 shadow-sm">
                 <h1 className="font-semibold text-xl">Transactions</h1>
             </header>
@@ -58,14 +58,14 @@ export function TransactionsClientPage() {
                                 <TabsTrigger
                                     key={tab}
                                     value={tab}
-                                    className="flex-shrink-0 w-[110px] !h-8 flex items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white"
+                                    className="w-[110px] !h-8 flex items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white"
                                 >
                                     {tab}
                                 </TabsTrigger>
                             ))}
                         </TabsList>
                     </div>
-                    <div className="relative w-[300px]">
+                    <div className="relative w-full sm:w-[300px]">
                         <Search className="absolute top-2.5 left-3 h-4 w-4 text-gray-400" />
                         <Input type="text" placeholder="Search..." className="pl-10" onChange={(e) => handleSearch(e.target.value)} />
                     </div>

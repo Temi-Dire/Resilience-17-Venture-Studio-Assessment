@@ -12,16 +12,16 @@ export const metadata: Metadata = {
     metadataBase: new URL("http://localhost:3000"),
     title: {
         default: "Fintrack",
-        template: "%s - Planham",
+        template: "%s - Fintrack",
     },
-    description: "Plan Events Smarter. Execute Seamlessly. Powered by AI.",
+    description: "Track Transactions Effectively. Execute Seamlessly. Powered by Fintrack.",
     openGraph: {
         type: "website",
-        images: ["/assets/opengraph.png"],
+        images: ["/assets/logo/fintrack-logo.png"],
     },
     twitter: {
         card: "summary_large_image",
-        images: ["/assets/opengraph.png"],
+        images: ["/assets/logo/fintrack-logo.png"],
     },
     icons: [
         {

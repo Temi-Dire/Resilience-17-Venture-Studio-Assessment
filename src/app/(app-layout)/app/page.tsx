@@ -12,7 +12,7 @@ export const metadata: Metadata = {
     },
 };
 
-export default async function MessagesPage() {
+export default async function HomePage() {
     return (
         <main className="flex min-h-[calc(100vh-5rem)] flex-col bg-green-900">
             <HomeClientPage />

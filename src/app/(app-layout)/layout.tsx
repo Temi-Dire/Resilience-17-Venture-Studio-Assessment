@@ -7,7 +7,7 @@ export default function AppLayout({ children }: { children: React.ReactNode }) {
     return (
         <SidebarProvider className="flex">
             <AppSidebar />
-            <main className="flex-1">{children}</main>
+            <main className="flex-1 pb-20 md:pb-0">{children}</main>
             <BottomNav />
         </SidebarProvider>
     );
