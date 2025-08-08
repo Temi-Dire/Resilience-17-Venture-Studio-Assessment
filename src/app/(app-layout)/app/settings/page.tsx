@@ -15,12 +15,6 @@ export const metadata: Metadata = {
 export default async function SettingsPage() {
     return (
         <main className="flex min-h-[calc(100vh-5rem)] flex-col">
-            {/* <RedirectToSignIn />
-
-            <AuthLoading>
-                <FullPageOverlay contentType="loading-spinner" />
-            </AuthLoading> */}
-
             <SettingsClientPage />
         </main>
     );
