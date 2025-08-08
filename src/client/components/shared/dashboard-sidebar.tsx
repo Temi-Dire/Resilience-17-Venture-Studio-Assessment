@@ -3,7 +3,7 @@
 import { ArrowLeftRight, Bell, ClipboardMinus, Home, Menu, Mic, Search, Settings, X } from "lucide-react";
 import Image from "next/image";
 import Link from "next/link";
-import { useState } from "react";
+import { useEffect, useLayoutEffect, useState } from "react";
 
 import { cn } from "@/client/lib/utils";
 import { NoNotificationIcon } from "@/client/components/svg-icons/no-notifications-icon";
@@ -13,10 +13,46 @@ import { Label } from "@/client/components/ui/label";
 import { Sheet, SheetContent, SheetHeader, SheetTitle, SheetTrigger } from "@/client/components/ui/sheet";
 import { Sidebar, SidebarContent, SidebarGroup, SidebarGroupContent, SidebarMenu, SidebarMenuItem, useSidebar } from "@/client/components/ui/sidebar";
 import { usePathname } from "next/navigation";
+import { toast } from "sonner";
 
 export function AppSidebar() {
     const { state, toggleSidebar } = useSidebar();
     const collapsed = state === "collapsed";
+    const [isSmallScreen, setIsSmallScreen] = useState(false);
+
+    // This runs before first paint
+    useLayoutEffect(() => {
+        const small = window.innerWidth < 905;
+        setIsSmallScreen(small);
+
+        if (small && !collapsed) {
+            toggleSidebar(); // collapse before rendering
+        }
+    }, []); // only on mount
+
+    // Keep listening for resizes afterward
+    useEffect(() => {
+        const checkScreen = () => {
+            const small = window.innerWidth < 905;
+            setIsSmallScreen(small);
+
+            if (small && !collapsed) {
+                toggleSidebar();
+            }
+        };
+
+        window.addEventListener("resize", checkScreen);
+        return () => window.removeEventListener("resize", checkScreen);
+    }, [collapsed, toggleSidebar]);
+
+    const handleToggle = () => {
+        if (!isSmallScreen) {
+            toggleSidebar();
+        } else {
+            toast.error("Please switch to a larger screen")
+        }
+    };
+
 
     const pathname = usePathname();
 
@@ -45,7 +81,7 @@ export function AppSidebar() {
                                     </Link>
                                 </SidebarMenuItem>
 
-                                <Button variant="ghost" className="p-2 hover:bg-transparent" onClick={toggleSidebar}>
+                                <Button variant="ghost" className="p-2 hover:bg-transparent" onClick={handleToggle}>
                                     <Menu className="!h-4 !w-4 text-[#1B2528]" />
                                 </Button>
                             </SidebarMenu>
@@ -57,7 +93,7 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <a
                                         href="/app"
-                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-black text-sm transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
+                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-sm text-black transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
                                             "!p-4.5": collapsed,
                                             "!bg-[#DDF2EE] !text-[#261E4C]": pathname === "/app",
                                         })}
@@ -69,7 +105,7 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <a
                                         href="/app/transactions"
-                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-black text-sm transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
+                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-sm text-black transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
                                             "!p-4.5": collapsed,
                                             "!bg-[#DDF2EE] !text-[#261E4C]": pathname.includes("/app/transactions"),
                                         })}
@@ -81,7 +117,7 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <a
                                         href="/app/reports"
-                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-black text-sm transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
+                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-sm text-black transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
                                             "!p-4.5": collapsed,
                                             "!bg-[#DDF2EE] !text-[#261E4C]": pathname.includes("/app/reports"),
                                         })}
@@ -93,7 +129,7 @@ export function AppSidebar() {
                                 <SidebarMenuItem>
                                     <a
                                         href="/app/settings"
-                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-black text-sm transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
+                                        className={cn("!py-4 !px-6 flex items-center gap-2 rounded-2xl font-medium text-sm text-black transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", {
                                             "!p-4.5": collapsed,
                                             "!bg-[#DDF2EE] !text-[#261E4C]": pathname.includes("/app/settings"),
                                         })}
@@ -119,7 +155,7 @@ const NotificationsSheet = (props: { collapsed: boolean }) => {
 
     return (
         <Sheet>
-            <SheetTrigger className={cn("!py-4 !px-6 flex w-full items-center gap-2 rounded-2xl font-medium text-black text-sm transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", { "!p-4.5": props.collapsed })}>
+            <SheetTrigger className={cn("!py-4 !px-6 flex w-full items-center gap-2 rounded-2xl font-medium text-sm text-black transition-colors hover:bg-[#DDF2EE] hover:text-[#261E4C]", { "!p-4.5": props.collapsed })}>
                 <Bell className="!h-5 !w-5" />
                 {!props.collapsed && <span>Notifications</span>}
             </SheetTrigger>
