@@ -78,7 +78,7 @@ export function TransactionsClientPage() {
 
 const TransactionCard = (props: { data: Transaction }) => {
     return (
-        <Card className="cursor-pointer gap-4 shadow-none drop-shadow-sm">
+        <Card className="cursor-pointer gap-4 rounded-xl bg-white shadow-none drop-shadow-sm transition-all duration-300 ease-in-out hover:scale-[1.02] hover:shadow-md hover:drop-shadow-lg">
             <CardHeader className="flex items-center justify-between">
                 <CardTitle className="break-words text-sm">{props.data.id}</CardTitle>
                 <CardAction
