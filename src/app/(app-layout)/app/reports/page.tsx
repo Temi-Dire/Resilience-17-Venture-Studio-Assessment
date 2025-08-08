@@ -1,27 +1,20 @@
 import type { Metadata } from "next";
-
-import { MessagesClientPage } from "./_components/cl-page";
+import { ReportsClientPage } from "./_components/cl-page";
 
 export const dynamic = "force-static";
 
 export const metadata: Metadata = {
-    title: "Messages",
+    title: "Reports",
     robots: {
         index: false,
         follow: false,
     },
 };
 
-export default async function MessagesPage() {
+export default async function ReportsPage() {
     return (
         <main className="flex min-h-[calc(100vh-5rem)] flex-col">
-            {/* <RedirectToSignIn />
-
-            <AuthLoading>
-                <FullPageOverlay contentType="loading-spinner" />
-            </AuthLoading> */}
-
-            <MessagesClientPage />
+            <ReportsClientPage />
         </main>
     );
 }
