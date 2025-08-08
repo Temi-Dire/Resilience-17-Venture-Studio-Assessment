@@ -34,16 +34,16 @@ export function HomeClientPage() {
         setCurrentUrl(window.location.href);
     }, []);
     return (
-        <section className="flex min-h-screen w-full flex-1 flex-col gap-6 bg-white w-screen sm:w-auto">
-            <header className="sticky top-0 z-10 flex gap-2 sm:gap-0 sm:flex-wrap items-center justify-between md:justify-end bg-white px-4 sm:px-6 md:px-8 py-4 shadow-sm">
+        <section className="flex min-h-screen w-full w-screen flex-1 flex-col gap-6 bg-white sm:w-auto">
+            <header className="sticky top-0 z-10 flex items-center justify-between gap-2 bg-white px-4 py-4 shadow-sm sm:flex-wrap sm:gap-0 sm:px-6 md:justify-end md:px-8">
                 {/* Logo (hidden on md and up) */}
                 <Link href="/app" className="relative flex-shrink-0 md:hidden">
                     <Image src="/assets/logo/fintrack-pig-logo.svg" alt="Logo" width={32} height={32} />
                 </Link>
 
                 {/* Right section */}
-                <div className="flex flex-wrap items-center gap-3 sm:gap-4 md:gap-7 min-w-0">
-                    <div className="flex-1 min-w-0">
+                <div className="flex min-w-0 flex-wrap items-center gap-3 sm:gap-4 md:gap-7">
+                    <div className="min-w-0 flex-1">
                         <CategorySearch onSelect={(val) => setSelected(val)} />
                     </div>
 
@@ -130,7 +130,7 @@ export function HomeClientPage() {
 
                     <DropdownMenu>
                         <DropdownMenuTrigger asChild>
-                            <Button className="bg-white border border-[#D8DFE0] rounded-full text-black hover:text-white" variant="ghost">
+                            <Button className="rounded-full border border-[#D8DFE0] bg-white text-black hover:text-white" variant="ghost">
                                 <Ellipsis />
                             </Button>
                         </DropdownMenuTrigger>
@@ -141,7 +141,7 @@ export function HomeClientPage() {
 
                             <AlertDialog>
                                 <AlertDialogTrigger asChild>
-                                    <Button variant={"secondary"} className="cursor-pointer -mx-1 bg-white text-red-500 hover:bg-white shadow-none">
+                                    <Button variant={"secondary"} className="-mx-1 cursor-pointer bg-white text-red-500 shadow-none hover:bg-white">
                                         Delete
                                     </Button>
                                 </AlertDialogTrigger>
@@ -160,7 +160,7 @@ export function HomeClientPage() {
                     </DropdownMenu>
                 </div>
             </div>
-            <div className="flex items-center gap-1 text-[#6D797C] text-xs tracking-tighter px-8">
+            <div className="flex items-center gap-1 px-8 text-[#6D797C] text-xs tracking-tighter">
                 <div className="-space-x-2 flex *:data-[slot=avatar]:ring-2 *:data-[slot=avatar]:ring-background *:data-[slot=avatar]:grayscale">
                     <Avatar>
                         <AvatarImage src="https://github.com/shadcn.png" alt="@shadcn" />

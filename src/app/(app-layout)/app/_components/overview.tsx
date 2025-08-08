@@ -61,7 +61,7 @@ export function Overview() {
                         </CardHeader>
                         <CardContent className="flex flex-col gap-1">
                             <p className="font-bold text-4xl">{loading ? <Skeleton className="h-10 flex-1 bg-neutral-300" /> : `$${formatNumberWithCommas(card.price)}`}</p>
-                            <p className="text-primary text-xs">{loading ? <Skeleton className="h-6 w-10 flex-1  bg-neutral-300" /> : `${card.rate}%`}</p>
+                            <p className="text-primary text-xs">{loading ? <Skeleton className="h-6 w-10 flex-1 bg-neutral-300" /> : `${card.rate}%`}</p>
                         </CardContent>
                     </Card>
                 ))}
@@ -190,7 +190,7 @@ export function Overview() {
                                 <TableCell className="text-left">{formatCurrency(transaction.amount, transaction.currency)}</TableCell>
                                 <TableCell className="text-left">{transaction.currency}</TableCell>
                                 <TableCell className="text-left">
-                                    <Badge variant="secondary" className="rounded-full py-2 px-3 gap-2">
+                                    <Badge variant="secondary" className="gap-2 rounded-full px-3 py-2">
                                         <div className={cn("size-1.5 rounded-full", transaction.type === "Credit" ? "bg-green-800" : "bg-red-700")} />
                                         <p>{transaction.type}</p>
                                     </Badge>

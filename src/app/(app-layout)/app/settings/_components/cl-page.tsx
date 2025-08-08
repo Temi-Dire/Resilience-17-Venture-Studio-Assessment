@@ -34,7 +34,7 @@ const BasicInformation = () => {
 
     return (
         <TabsContent value="basic-information" className="gap-7.5 bg-white p-0">
-            <div className="flex pt-8 pb-3  flex-col justify-center gap-2 border-b border-b-neutral-200 px-4">
+            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
                 <h1 className="font-medium text-xl">Basic Information</h1>
             </div>
             <div className="flex flex-col gap-16 px-4 py-6">
@@ -97,7 +97,7 @@ const SecuritySettings = () => {
 
     return (
         <TabsContent value="security" className="gap-7.5 bg-white p-0">
-            <div className="flex pt-8 pb-3  flex-col justify-center gap-2 border-b border-b-neutral-200 px-4">
+            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
                 <h1 className="font-medium text-xl">Security</h1>
             </div>
             <div className="flex flex-col gap-6 px-9 py-6">
@@ -162,7 +162,7 @@ const SecuritySettings = () => {
 const Preferences = () => {
     return (
         <TabsContent value="preferences" className="gap-7.5 bg-white p-0">
-            <div className="flex pt-8 pb-3  flex-col justify-center gap-2 border-b border-b-neutral-200 px-4">
+            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
                 <h1 className="font-medium text-xl">Preferences</h1>
             </div>
             <div className="flex flex-col gap-6 px-9 py-6">
@@ -202,7 +202,7 @@ const Preferences = () => {
 const AccountSettings = () => {
     return (
         <TabsContent value="account-settings" className="gap-7.5 bg-white p-0">
-            <div className="flex pt-8 pb-3  flex-col justify-center gap-2 border-b border-b-neutral-200 px-4">
+            <div className="flex flex-col justify-center gap-2 border-b border-b-neutral-200 px-4 pt-8 pb-3">
                 <h1 className="font-medium text-xl">Account Settings</h1>
             </div>
             <div className="flex flex-col gap-6 px-9 py-6">

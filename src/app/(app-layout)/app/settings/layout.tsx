@@ -8,7 +8,7 @@ export default function SettingsLayout({ children }: { children: React.ReactNode
         <Tabs className="flex h-screen flex-row items-stretch gap-0" defaultValue="basic-information">
             <div className="flex-[0.35] border-neutral-200 border-r">
                 <div className="flex w-full flex-col">
-                    <h1 className="flex pt-8 pb-3 items-center border-b border-b-neutral-200 px-4 font-medium text-xl">Your Profile</h1>
+                    <h1 className="flex items-center border-b border-b-neutral-200 px-4 pt-8 pb-3 font-medium text-xl">Your Profile</h1>
                     <TabsList className="flex h-full w-full flex-col items-start justify-normal gap-y-2 rounded-none bg-transparent px-4 py-9 text-left text-basecolor shadow-none">
                         <TabsTrigger
                             value="basic-information"

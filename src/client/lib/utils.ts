@@ -11,10 +11,8 @@ export function formatNumberWithCommas(num: number | string): string {
 
 export function formatCurrency(amount: number, currencySymbol = "$") {
     const absAmount = Math.abs(amount).toLocaleString();
-    return amount < 0 
-      ? `-${currencySymbol}${absAmount}` 
-      : `${currencySymbol}${absAmount}`;
-  }
+    return amount < 0 ? `-${currencySymbol}${absAmount}` : `${currencySymbol}${absAmount}`;
+}
 
 export function debounce<T extends (...args: any[]) => void>(func: T, delay: number) {
     let timeoutId: ReturnType<typeof setTimeout>;

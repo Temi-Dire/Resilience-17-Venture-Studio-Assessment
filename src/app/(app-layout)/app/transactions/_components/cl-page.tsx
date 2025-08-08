@@ -46,20 +46,16 @@ export function TransactionsClientPage() {
 
     return (
         <section className="min-h-screen w-screen sm:w-auto">
-            <header className="mb-2.5 flex w-full items-center justify-between bg-white py-8 px-8 shadow-sm">
+            <header className="mb-2.5 flex w-full items-center justify-between bg-white px-8 py-8 shadow-sm">
                 <h1 className="font-semibold text-xl">Transactions</h1>
             </header>
 
             <Tabs value={activeTab} onValueChange={(value) => setActiveTab(value as TransactionTabTypes)} className="w-full">
-                <div className="flex flex-col gap-5 lg:flex-row justify-between bg-white py-6 px-8">
+                <div className="flex flex-col justify-between gap-5 bg-white px-8 py-6 lg:flex-row">
                     <div className="overflow-x-auto">
                         <TabsList className="flex gap-2 bg-[#F9F9F9] text-sm">
                             {tabs.map((tab) => (
-                                <TabsTrigger
-                                    key={tab}
-                                    value={tab}
-                                    className="w-[110px] !h-8 flex items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white"
-                                >
+                                <TabsTrigger key={tab} value={tab} className="!h-8 flex w-[110px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
                                     {tab}
                                 </TabsTrigger>
                             ))}
@@ -72,7 +68,7 @@ export function TransactionsClientPage() {
                 </div>
 
                 <TabsContent value={activeTab} className="data-[state=inactive]:hidden data-[state=active]:flex-1">
-                    <ul className="grid grid-cols-1 sm:grid-cols-2 lg:grid-cols-3 gap-6 px-8">
+                    <ul className="grid grid-cols-1 gap-6 px-8 sm:grid-cols-2 lg:grid-cols-3">
                         {filteredData.map((card, i) => (
                             <TransactionCard data={card} key={i} />
                         ))}

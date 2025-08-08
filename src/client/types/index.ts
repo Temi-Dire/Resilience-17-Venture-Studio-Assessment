@@ -4,7 +4,7 @@ export interface Transaction {
     remark: string;
     amount: number;
     currency: string;
-    type: 'Credit' | 'Debit';
+    type: "Credit" | "Debit";
 }
 
 export interface DashboardSummary {
@@ -16,4 +16,4 @@ export interface DashboardSummary {
     creditsChange: number;
     debitsChange: number;
     transactionChange: number;
-  }
+}

@@ -34,7 +34,7 @@ export default function CategorySearch({ onSelect }: { onSelect: (val: string) =
     return (
         <div className="relative w-full flex-1">
             {/* Search input */}
-            <div className="flex items-center gap-2.5 rounded-4xl border px-4 transition-colors focus-within:border-[#437D8E] bg-white">
+            <div className="flex items-center gap-2.5 rounded-4xl border bg-white px-4 transition-colors focus-within:border-[#437D8E]">
                 <Input
                     value={query}
                     onChange={(e) => handleChange(e.target.value)}
@@ -49,19 +49,19 @@ export default function CategorySearch({ onSelect }: { onSelect: (val: string) =
                 <Search className="!w-5 !h-5 text-gray-500" />
             </div>
             {shouldShowDropdown && (
-                <ul className="absolute top-full mt-2 w-full rounded-md border bg-white shadow-md z-20">
+                <ul className="absolute top-full z-20 mt-2 w-full rounded-md border bg-white shadow-md">
                     {filtered.length > 0 ? (
                         filtered.map((cat) => (
                             <li
                                 key={cat}
-                                className="cursor-pointer px-4 py-2 hover:bg-gray-100 text-sm"
+                                className="cursor-pointer px-4 py-2 text-sm hover:bg-gray-100"
                                 onMouseDown={() => handleSelect(cat)} // use onMouseDown instead of onClick
                             >
                                 {cat}
                             </li>
                         ))
                     ) : (
-                        <li className="px-4 py-2 text-sm text-gray-500">No suggestions.</li>
+                        <li className="px-4 py-2 text-gray-500 text-sm">No suggestions.</li>
                     )}
                 </ul>
             )}
