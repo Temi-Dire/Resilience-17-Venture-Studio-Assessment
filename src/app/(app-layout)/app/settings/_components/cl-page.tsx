@@ -1,6 +1,6 @@
 "use client";
 
-import { Camera, Check, Clock, Eye, EyeOff, LogOut, PencilLine, Trash, Upload } from "lucide-react";
+import { Check, Clock, Eye, EyeOff, LogOut, PencilLine, Trash } from "lucide-react";
 import { useState } from "react";
 
 import { SwitchWithIcon } from "@/client/components/ui-extended/switch-icon";
@@ -8,9 +8,9 @@ import { Button } from "@/client/components/ui/button";
 import { Input } from "@/client/components/ui/input";
 import { Label } from "@/client/components/ui/label";
 import { Tabs, TabsContent, TabsList, TabsTrigger } from "@/client/components/ui/tabs";
-import Image from "next/image";
 import { PhoneInput, type CountryData } from "@/client/components/ui-extended/phone-input";
-import { Dropzone, DropzoneContent, DropzoneEmptyState } from "@/client/components/ui-extended/file-dropzone";
+import { AlertDialog, AlertDialogAction, AlertDialogCancel, AlertDialogContent, AlertDialogDescription, AlertDialogFooter, AlertDialogHeader, AlertDialogTitle, AlertDialogTrigger } from "@/client/components/ui/alert-dialog";
+import { useRouter } from "next/navigation";
 
 export function SettingsClientPage() {
     return (
@@ -18,21 +18,25 @@ export function SettingsClientPage() {
             <header className="sticky top-0 mb-2.5 flex w-full items-center justify-between bg-white px-8 py-4 shadow-sm sm:py-8">
                 <h1 className="font-semibold text-xl">Profile Settings</h1>
             </header>
-            <Tabs defaultValue="basic-information" className="w-full px-8">
-                <TabsList className="my-4 bg-white">
-                    <TabsTrigger value="basic-information" className="text-[#6D797C]">
-                        Basic Information
-                    </TabsTrigger>
-                    <TabsTrigger value="security" className="text-[#6D797C]">
-                        Security
-                    </TabsTrigger>
-                    <TabsTrigger value="preferences" className="text-[#6D797C]">
-                        Preferences
-                    </TabsTrigger>
-                    <TabsTrigger value="account-settings" className="text-[#6D797C]">
-                        Account Settings
-                    </TabsTrigger>
-                </TabsList>
+            <Tabs defaultValue="basic-information" className="w-full">
+                <div className="flex flex-col justify-between gap-5 bg-white px-8 py-6 lg:flex-row">
+                    <div className="overflow-x-auto">
+                        <TabsList className="flex gap-2 bg-[#F9F9F9] text-sm">
+                            <TabsTrigger value="basic-information" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                                Basic Information
+                            </TabsTrigger>
+                            <TabsTrigger value="security" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                                Security
+                            </TabsTrigger>
+                            <TabsTrigger value="preferences" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                                Preferences
+                            </TabsTrigger>
+                            <TabsTrigger value="account-settings" className="!h-8 flex w-[130px] items-center justify-center transition-colors data-[state=active]:rounded-sm data-[state=active]:bg-primary data-[state=active]:text-white">
+                                Account Settings
+                            </TabsTrigger>
+                        </TabsList>
+                    </div>
+                </div>
                 <BasicInformation />
                 <SecuritySettings />
                 <Preferences />
@@ -45,44 +49,17 @@ export function SettingsClientPage() {
 const BasicInformation = () => {
     const [countryData, setCountryData] = useState<CountryData | undefined>();
 
-    const [files, setFiles] = useState<File[] | undefined>();
-    const handleDrop = (files: File[]) => {
-        console.log(files);
-        setFiles(files);
-    };
-
     return (
         <TabsContent value="basic-information" className="gap-7.5 bg-white p-0">
-            <div className="flex flex-col gap-16 px-4 py-6">
-                <div className="relative items-center justify-center">
-                    <Dropzone accept={{ "image/*": [] }} maxFiles={10} maxSize={1024 * 1024 * 10} minSize={1024} onDrop={handleDrop} onError={console.error} src={files} className="rounded-xl border-none p-0">
-                        <DropzoneEmptyState
-                            children={
-                                <div className="flex h-48 w-full flex-col items-center justify-center rounded-xl border border-dashed py-8">
-                                    <Upload size={40} className="mb-3 text-primary" />
-                                    <p className="mb-2 text-neutral-500 text-xs">Upload your cover image here 1200 x 600px recommended</p>
-                                </div>
-                            }
-                        />
-                        <DropzoneContent />
-                    </Dropzone>
-                    <div className="-bottom-12 absolute left-8">
-                        <button className="relative" type="button">
-                            <Image className="rounded-full" src={"/assets/images/profile-picture.svg"} alt="Profile picture" width={150} height={150} />
-                            <div className="absolute right-0 bottom-1 w-fit rounded-lg bg-white p-3 shadow-md">
-                                <Camera className="text-primary" size={16} />
-                            </div>
-                        </button>
-                    </div>
-                </div>
+            <div className="flex flex-col gap-16 px-8 py-6">
                 <form className="flex flex-col gap-6">
-                    <div className="flex items-center justify-between">
-                        <p className="text-neutral-500">You can change your personal information settings here</p>
+                    <div className="flex items-center gap-2 justify-between">
+                        <p className="text-neutral-500 text-xs sm:text-base">You can change your personal information settings here</p>
                         <Button>
                             <PencilLine size={16} /> Edit
                         </Button>
                     </div>
-                    <div className="grid grid-cols-2 gap-9 rounded-2xl border border-neutral-200 p-6">
+                    <div className="grid grid-cols-1 sm:grid-cols-2 gap-9 rounded-2xl border border-neutral-200 p-6">
                         <div className="flex flex-col gap-2">
                             <label htmlFor="first-name">First Name</label>
                             <Input className="h-10 rounded-xl border-neutral-200 font-medium text-sm shadow-none placeholder:text-neutral-400 md:h-14" value="John" />
@@ -111,12 +88,14 @@ const SecuritySettings = () => {
     const [showNewPassword, setShowNewPassword] = useState<boolean>();
     const [showConfirmNewPassword, setShowConfirmNewPassword] = useState<boolean>();
 
+    const router = useRouter();
+
     return (
         <TabsContent value="security" className="gap-7.5 bg-white p-0">
             <div className="flex flex-col gap-6 px-9 py-6">
                 <form className="flex flex-col gap-5 rounded-2xl border border-neutral-200 p-6">
-                    <h2 className="font-medium text-lg">Change Your Password</h2>
-                    <div className="flex flex-col gap-6">
+                    <h2 className="font-medium text-base sm:text-lg">Change Your Password</h2>
+                    <div className="flex flex-col gap-6 text-sm sm:text-base">
                         <div className="flex flex-col gap-2">
                             <Label className="text-black">Current Password</Label>
                             <div className="relative">
@@ -150,7 +129,7 @@ const SecuritySettings = () => {
                         </Button>
                     </div>
                 </form>
-                <form className="flex flex-col gap-6 rounded-2xl border border-neutral-200 p-6">
+                <div className="flex flex-col gap-6 rounded-2xl border border-neutral-200 p-6">
                     <div className="flex flex-col gap-2.5">
                         <h2 className="font-medium text-lg">Login Information</h2>
                         <div className="flex items-center gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
@@ -162,11 +141,30 @@ const SecuritySettings = () => {
                         </div>
                     </div>
 
-                    <Button className="h-10 w-35 gap-1.5 rounded-full font-semibold text-sm" variant="destructive">
-                        <LogOut className="text-white" />
-                        <p>Log Out</p>
-                    </Button>
-                </form>
+                    <AlertDialog>
+                        <AlertDialogTrigger>
+                            <Button variant={"destructive"} className="flex justify-start">
+                                Logout
+                            </Button>
+                        </AlertDialogTrigger>
+                        <AlertDialogContent>
+                            <AlertDialogHeader>
+                                <AlertDialogTitle>Log out of your account?</AlertDialogTitle>
+                                <AlertDialogDescription>You’ll need to sign in again to access your account. Any unsaved changes may be lost.</AlertDialogDescription>
+                            </AlertDialogHeader>
+                            <AlertDialogFooter>
+                                <AlertDialogCancel>Cancel</AlertDialogCancel>
+                                <AlertDialogAction
+                                    onClick={() => {
+                                        router.push("/app");
+                                    }}
+                                >
+                                    Continue
+                                </AlertDialogAction>
+                            </AlertDialogFooter>
+                        </AlertDialogContent>
+                    </AlertDialog>
+                </div>
             </div>
         </TabsContent>
     );
@@ -216,7 +214,7 @@ const AccountSettings = () => {
                 <div className="flex flex-col gap-2.5 rounded-2xl border border-neutral-200 p-6">
                     <h2 className="font-medium text-lg">Account Type</h2>
 
-                    <div className="flex items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
+                    <div className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
                         <div className="flex flex-col gap-2">
                             <p className="font-medium text-black text-sm">
                                 You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
@@ -230,7 +228,7 @@ const AccountSettings = () => {
                     <h2 className="font-medium text-lg">Account Management</h2>
 
                     <ul className="flex flex-col gap-5">
-                        <li className="flex items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
+                        <li className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-neutral-200 bg-neutral-100/80 px-2.5 py-3">
                             <div className="flex flex-col gap-2">
                                 <p className="font-medium text-black text-sm">
                                     You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
@@ -242,7 +240,7 @@ const AccountSettings = () => {
                                 <p>Sign Out</p>
                             </Button>
                         </li>
-                        <li className="flex items-center justify-between gap-2 rounded-xl border border-destructive bg-destructive/10 px-2.5 py-3">
+                        <li className="flex flex-col sm:flex-row sm:items-center justify-between gap-2 rounded-xl border border-destructive bg-destructive/10 px-2.5 py-3">
                             <div className="flex flex-col gap-2">
                                 <p className="font-medium text-black text-sm">
                                     You're currently using FinTrack as a: <span className="font-semibold text-destructive">USER</span>
